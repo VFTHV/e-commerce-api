@@ -59,9 +59,9 @@
 
 - [x] create user
 - [x] send response with entire user (only while testing)
-- [] check if email already in use (schema and controller)
-- [] ignore 'role'
-- [] alternative 'admin' setup
+- [x] check if email already in use (schema and controller)
+- [x] ignore 'role'
+- [x] alternative 'admin' setup
 
 #### Handle Password
 
