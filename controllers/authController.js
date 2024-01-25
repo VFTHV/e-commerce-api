@@ -47,6 +47,8 @@ const login = async (req, res) => {
 
   const tokenUser = { name: user.name, userId: user._id, role: user.role };
 
+  console.log(req.cookies);
+
   attachCookiesToResponse({ res, user: tokenUser });
   res.status(StatusCodes.CREATED).send({ user: tokenUser });
   // status code probably needs to be OK
@@ -54,8 +56,14 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  console.log(req.body);
-  res.send('logout controller');
+  res.cookie('token', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now() + 35),
+  });
+
+  // attachCookiesToResponse({ res, user: 'logout' });
+
+  res.status(StatusCodes.OK).send({ msg: 'user logged out' });
 };
 
 module.exports = { register, login, logout };
