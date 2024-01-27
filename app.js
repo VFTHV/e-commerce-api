@@ -15,6 +15,7 @@ const connectDB = require('./db/connect');
 
 // routers
 const authRouter = require('./routes/authRouter');
+const userRouter = require('./routes/userRouter');
 
 // middleware
 const notFountMiddleware = require('./middleware/not-found');
@@ -22,7 +23,7 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.use(morgan('tiny')); // logs every route request on console
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get('/', (req, res) => {
   res.send('e-commerce api');
@@ -34,6 +35,7 @@ app.get('/api/v1/', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 
 app.use(notFountMiddleware);
 app.use(errorHandlerMiddleware);

@@ -61,8 +61,6 @@ const logout = async (req, res) => {
     expires: new Date(Date.now() + 35),
   });
 
-  // attachCookiesToResponse({ res, user: 'logout' });
-
   res.status(StatusCodes.OK).send({ msg: 'user logged out' });
 };
 
