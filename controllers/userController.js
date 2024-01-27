@@ -5,7 +5,7 @@ const getAllUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
   res.send('getSingleUser');
-  console.log('getSingleUser');
+  console.log(req.params);
 };
 
 const showCurrentUser = async (req, res) => {
