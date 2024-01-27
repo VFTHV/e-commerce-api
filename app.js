@@ -14,8 +14,8 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./db/connect');
 
 // routers
-const authRouter = require('./routes/authRouter');
-const userRouter = require('./routes/userRouter');
+const authRouter = require('./routes/authRoutes');
+const userRouter = require('./routes/userRoutes');
 
 // middleware
 const notFountMiddleware = require('./middleware/not-found');

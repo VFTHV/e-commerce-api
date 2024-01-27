@@ -1,24 +1,24 @@
-const getAllUsers = (req, res) => {
+const getAllUsers = async (req, res) => {
   res.send('GetAllUsers');
   console.log('GetAllUsers');
 };
 
-const getSingleUser = (req, res) => {
+const getSingleUser = async (req, res) => {
   res.send('getSingleUser');
   console.log('getSingleUser');
 };
 
-const showCurrentUser = (req, res) => {
+const showCurrentUser = async (req, res) => {
   res.send('showCurrentUse');
   console.log('showCurrentUse');
 };
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
   res.send('updateUser');
   console.log('updateUser');
 };
 
-const updateUserPassword = (req, res) => {
+const updateUserPassword = async (req, res) => {
   res.send('updateUserPassword');
   console.log('updateUserPassword');
 };
