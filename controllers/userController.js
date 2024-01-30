@@ -1,6 +1,21 @@
+const User = require('../models/User');
+const { StatusCodes } = require('http-status-codes');
+const CustomError = require('../errors');
+
 const getAllUsers = async (req, res) => {
-  res.send('GetAllUsers');
-  console.log('GetAllUsers');
+  const users = await User.find({ role: 'uuser' });
+
+  if (!users.length) {
+    throw new CustomError.NotFoundError('Nothing found');
+  }
+
+  const usersNoPassword = users.map((user) => {
+    const { _id, name, email, role } = user;
+    return { _id, name, email, role };
+    // return { ...user, password: 'hidden' };
+  });
+
+  res.status(StatusCodes.OK).send({ users: usersNoPassword });
 };
 
 const getSingleUser = async (req, res) => {
@@ -14,12 +29,12 @@ const showCurrentUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  res.send('updateUser');
+  res.send(req.body);
   console.log('updateUser');
 };
 
 const updateUserPassword = async (req, res) => {
-  res.send('updateUserPassword');
+  res.send(req.body);
   console.log('updateUserPassword');
 };
 
