@@ -1,8 +1,7 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
-
-const { attachCookiesToResponse } = require('../utils');
+const { attachCookiesToResponse, createTokenUser } = require('../utils');
 
 const register = async (req, res) => {
   const { email, name, password } = req.body;
@@ -14,12 +13,11 @@ const register = async (req, res) => {
   }
 
   // first registered user is an admin
-
   const isFirstAccount = (await User.countDocuments({})) === 0;
   let role = isFirstAccount ? 'admin' : 'user';
 
   const user = await User.create({ email, name, password, role });
-  const tokenUser = { name: user.name, userId: user._id, role: user.role };
+  const tokenUser = createTokenUser(user);
 
   attachCookiesToResponse({ res, user: tokenUser });
 
@@ -34,20 +32,16 @@ const login = async (req, res) => {
   }
 
   const user = await User.findOne({ email });
-
   if (!user) {
     throw new CustomError.UnauthenticatedError('Invalid credentials');
   }
 
   const isPasswordCorrect = await user.comparePassword(password);
-
   if (!isPasswordCorrect) {
     throw new CustomError.UnauthenticatedError('Incorrect password');
   }
 
-  const tokenUser = { name: user.name, userId: user._id, role: user.role };
-
-  console.log(req.cookies);
+  const tokenUser = createTokenUser(user);
 
   attachCookiesToResponse({ res, user: tokenUser });
   res.status(StatusCodes.CREATED).send({ user: tokenUser });
