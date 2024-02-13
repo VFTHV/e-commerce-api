@@ -22,24 +22,25 @@ const showCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: req.user });
 };
 
-const updateUser = async (req, res) => {
-  const { name, email } = req.body;
+// updateUser with findOneAndUpdate
+// const updateUser = async (req, res) => {
+//   const { name, email } = req.body;
 
-  if (!name || !email) {
-    throw new CustomError.BadRequestError('Please provide name and email');
-  }
-  const user = await User.findOneAndUpdate(
-    { _id: req.user.userId },
-    { name, email },
-    { new: true, runValidators: true } /* check later what this does */
-  );
+//   if (!name || !email) {
+//     throw new CustomError.BadRequestError('Please provide name and email');
+//   }
+//   const user = await User.findOneAndUpdate(
+//     { _id: req.user.userId },
+//     { name, email },
+//     { new: true, runValidators: true } /* check later what this does */
+//   );
 
-  const tokenUser = createTokenUser(user);
+//   const tokenUser = createTokenUser(user);
 
-  attachCookiesToResponse({ res, user: tokenUser });
+//   attachCookiesToResponse({ res, user: tokenUser });
 
-  res.status(StatusCodes.OK).json({ user: tokenUser });
-};
+//   res.status(StatusCodes.OK).json({ user: tokenUser });
+// };
 
 const updateUserPassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;

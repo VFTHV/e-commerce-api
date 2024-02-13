@@ -45,8 +45,6 @@ const login = async (req, res) => {
 
   attachCookiesToResponse({ res, user: tokenUser });
   res.status(StatusCodes.OK).send({ user: tokenUser });
-  // status code probably needs to be OK
-  // res.status(StatusCodes.OK).send({ user: tokenUser });
 };
 
 const logout = async (req, res) => {
