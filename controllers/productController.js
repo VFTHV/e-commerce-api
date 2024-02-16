@@ -32,6 +32,7 @@ const updateProduct = async (req, res) => {
   // running validators
   // running validators
   // running validators
+  // running validators
   const product = await Product.findOneAndUpdate({ _id: productId }, req.body, {
     new: true,
     runValidators: true,
