@@ -18,6 +18,11 @@ const ReviewSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide review text'],
     },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { timestamps: true }
 );
