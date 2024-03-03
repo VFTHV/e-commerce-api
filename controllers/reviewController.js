@@ -1,5 +1,5 @@
 const createReview = async (req, res) => {
-  res.send('createReview');
+  res.send(req.body);
 };
 const getAllReviews = async (req, res) => {
   res.send('getAllReviews');

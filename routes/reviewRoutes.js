@@ -25,3 +25,5 @@ router
 router
   .route('/deleteReview')
   .delete(authenticateUser, authorizePermissions('user'), deleteReview);
+
+module.exports = router;
