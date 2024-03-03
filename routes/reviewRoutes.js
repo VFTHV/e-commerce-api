@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {
-  authenticateUser,
-  authorizePermissions,
-} = require('../middleware/authentication');
+const { authenticateUser } = require('../middleware/authentication');
 const {
   createReview,
   getAllReviews,
@@ -12,18 +9,12 @@ const {
   deleteReview,
 } = require('../controllers/reviewController');
 
-router
-  .route('/createReview')
-  .post(authenticateUser, authorizePermissions('user'), createReview);
-
-router.route('/getAllReviews').get(getAllReviews);
-router.route('/getSingleReview').get(getSingleReview);
-router
-  .route('/updateReview')
-  .patch(authenticateUser, authorizePermissions('user'), updateReview);
+router.route('/').post(authenticateUser, createReview).get(getAllReviews);
 
 router
-  .route('/deleteReview')
-  .delete(authenticateUser, authorizePermissions('user'), deleteReview);
+  .route('/:id')
+  .get(getSingleReview)
+  .patch(authenticateUser, updateReview)
+  .delete(authenticateUser, deleteReview);
 
 module.exports = router;
