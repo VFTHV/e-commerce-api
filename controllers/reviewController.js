@@ -32,7 +32,7 @@ const createReview = async (req, res) => {
 const getAllReviews = async (req, res) => {
   const reviews = await Review.find({});
 
-  res.status(StatusCodes.OK).json({ reviews, count: reviews.length });
+  res.status(StatusCodes.OK).json({ count: reviews.length, reviews });
 };
 
 const getSingleReview = async (req, res) => {
