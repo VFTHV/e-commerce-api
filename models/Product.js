@@ -47,11 +47,14 @@ const ProductSchema = new mongoose.Schema(
 );
 
 // virtual properties that don't exist but extracted by logics
-ProductSchema.virtual('reviews', {
-  ref: 'Review',
-  localField: '_id',
-  foreignField: 'product',
-  justOne: false,
-});
+ProductSchema.virtual(
+  'reviews', // property created in .populate method
+  {
+    ref: 'Review', // referencing Review model
+    foreignField: 'product', // referencing field in Review model
+    localField: '_id', // referencing field in current model
+    justOne: false,
+  }
+);
 
 module.exports = mongoose.model('Product', ProductSchema);
