@@ -13,7 +13,7 @@ const createProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
   const products = await Product.find({});
 
-  res.status(StatusCodes.OK).json({ products, count: products.length });
+  res.status(StatusCodes.OK).json({ count: products.length, products });
 };
 
 const getSingleProduct = async (req, res) => {
@@ -46,12 +46,11 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const { id: productId } = req.params;
 
-  const product = Product.findOne({ _id: productId });
+  const product = await Product.findOne({ _id: productId });
 
   if (!product) {
     throw new CustomError.NotFoundError(`No product with id: ${productId}`);
   }
-
   await product.remove();
 
   res.status(StatusCodes.OK).json({ msg: 'Success! Product Removed.' });
