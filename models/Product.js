@@ -56,12 +56,6 @@ ProductSchema.virtual(
     justOne: false,
   }
 );
-// productSchema pre
-// productSchema pre
-// productSchema pre
-// productSchema pre
-// productSchema pre
-// productSchema pre
 
 ProductSchema.pre('remove', async function (next) {
   try {
