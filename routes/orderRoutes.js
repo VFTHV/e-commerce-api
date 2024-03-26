@@ -14,7 +14,7 @@ const {
 
 router
   .route('/getAllOrders')
-  .get(authenticateUser, authorizePermissions('admim'), getAllOrders);
+  .get(authenticateUser, authorizePermissions('admin'), getAllOrders);
 
 router.route('/showAllMyOrders').get(getCurrentUserOrders);
 router
