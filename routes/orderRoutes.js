@@ -6,7 +6,7 @@ const {
   getCurrentUserOrders,
   createOrder,
   updateOrder,
-} = require('../controllers');
+} = require('../controllers/orderController');
 const {
   authenticateUser,
   authorizePermissions,
@@ -22,3 +22,5 @@ router
   .get(authenticateUser, getSingleOrder)
   .post(authenticateUser, createOrder)
   .patch(authenticateUser, updateOrder);
+
+module.exports = router;
