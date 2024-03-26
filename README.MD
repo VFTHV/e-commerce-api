@@ -302,13 +302,13 @@
 
 #### Order Structure
 
-- [] add orderController file in controllers
-- [] export (getAllOrders, getSingleOrder, getCurrentUserOrders,
-  createOrder, updateOrder) functions
-- [] res.send('function name')
-- [] setup orderRoutes file in routes
-- [] import all controllers
-- [] authenticate user in all routes
+- [x] add orderController file in controllers
+- [x] export (getAllOrders, getSingleOrder, getCurrentUserOrders,
+      createOrder, updateOrder) functions
+- [x] res.send('function name')
+- [x] setup orderRoutes file in routes
+- [x] import all controllers
+- [x] authenticate user in all routes
 - [] getAllOrders admin only
 - [] typical REST setup
 - [] router.route('/showAllMyOrders').get(getCurrentUserOrders)
