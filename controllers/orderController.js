@@ -88,7 +88,13 @@ const getSingleOrder = async (req, res) => {
 };
 
 const getCurrentUserOrders = async (req, res) => {
-  res.send('getCurrentUserOrders');
+  const orders = await Order.find({ user: req.user.userId });
+
+  if (orders.length === 0) {
+    throw new CustomError.NotFoundError('No orders found');
+  }
+
+  res.status(StatusCodes.OK).send({ orders });
 };
 
 const updateOrder = async (req, res) => {
