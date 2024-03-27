@@ -55,9 +55,13 @@ const createOrder = async (req, res) => {
     subtotal,
     tax,
     shippingFee,
+    clientSecret: paymentIntent.client_secret,
+    user: req.user.userId,
   });
 
-  res.send('create order');
+  res
+    .status(StatusCodes.CREATED)
+    .json({ order, clientSecret: order.clientSecret });
 };
 
 const getAllOrders = async (req, res) => {
