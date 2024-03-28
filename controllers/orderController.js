@@ -65,13 +65,9 @@ const createOrder = async (req, res) => {
 };
 
 const getAllOrders = async (req, res) => {
-  const orders = await Order.find();
+  const orders = await Order.find({});
 
-  if (!orders) {
-    throw new CustomError.NotFoundError('No orders found');
-  }
-
-  res.status(StatusCodes.OK).send({ orders });
+  res.status(StatusCodes.OK).json({ count: orders.length, orders });
 };
 
 const getSingleOrder = async (req, res) => {
@@ -79,22 +75,18 @@ const getSingleOrder = async (req, res) => {
 
   const order = await Order.findOne({ _id: orderId });
   if (!order) {
-    throw new CustomError.NotFoundError('Order not found');
+    throw new CustomError.NotFoundError(`No order with id: ${orderId}`);
   }
 
   checkPermissions(req.user, order.user);
 
-  res.status(StatusCodes.OK).send({ order });
+  res.status(StatusCodes.OK).json({ order });
 };
 
 const getCurrentUserOrders = async (req, res) => {
   const orders = await Order.find({ user: req.user.userId });
 
-  if (orders.length === 0) {
-    throw new CustomError.NotFoundError('No orders found');
-  }
-
-  res.status(StatusCodes.OK).send({ orders });
+  res.status(StatusCodes.OK).json({ count: orders.length, orders });
 };
 
 const updateOrder = async (req, res) => {
@@ -103,12 +95,11 @@ const updateOrder = async (req, res) => {
   const order = await Order.findOne({ _id: orderId });
 
   if (!order) {
-    throw new CustomError.NotFoundError('Order not found');
+    throw new CustomError.NotFoundError(`No order with id: ${orderId}`);
   }
-  console.log(req.user.userId === order.user.toString());
-
   checkPermissions(req.user, order.user);
 
+  order.paymentIntentId = paymentIntentId;
   order.status = 'paid';
   await order.save();
 
